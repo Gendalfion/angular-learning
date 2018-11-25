@@ -13,10 +13,6 @@ export class JournalEntryComponent implements OnInit {
 
   @Input() entry: JournalEntry = null;
 
-  formatDate(): String {
-    return this.entry.date.toDateString();
-  }
-
   constructor(
     private route: ActivatedRoute,
     private journalService: JournalService,
