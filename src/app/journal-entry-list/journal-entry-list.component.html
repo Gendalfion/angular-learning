@@ -1,0 +1,19 @@
+<h2>List of journal entries</h2>
+<ul class="journal-entry-list">
+  <li *ngFor="let entry of journalList" (click)="onSelect(entry)" [class.selected]="entry === selectedEntry">
+    <span class="badge">{{entry.id}}</span>
+    <span>{{entry.camera_name}}</span>
+    <span>{{entry.date | date}}</span>
+
+    <span class="align-right">
+      <label>
+        <input [(ngModel)]="entry.viewed" type="checkbox">
+      </label>
+    </span>
+  </li>
+</ul>
+
+<!-- Parent/child component relationship (https://angular.io/guide/component-interaction) -->
+<div *ngIf="selectedEntry">
+  <app-journal-entry [entry]="selectedEntry"></app-journal-entry>
+</div>

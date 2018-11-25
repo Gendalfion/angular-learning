@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JournalEntry} from '../classes/JournalEntry';
 
 @Component({
@@ -8,7 +8,7 @@ import {JournalEntry} from '../classes/JournalEntry';
 })
 export class JournalEntryComponent implements OnInit {
 
-  private entry: JournalEntry = {
+  @Input() entry: JournalEntry = {
     id: '1',
     camera_name: 'Camera 1',
     date: new Date(),
