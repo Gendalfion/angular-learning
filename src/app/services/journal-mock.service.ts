@@ -1,16 +1,18 @@
-import {Injectable} from '@angular/core';
 import {JournalEntry} from '../classes/JournalEntry';
 import {JOURNAL_ENTRIES_MOCK} from '../classes/MockJournalEntries';
 import {of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {MessagesService} from './messages.service';
+import {JournalService} from './journal.service';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JournalMockService {
+export class JournalMockService extends JournalService {
 
   constructor(private messagesService: MessagesService) {
+    super();
   }
 
   getJournalEntries(): Promise<JournalEntry[]> {
@@ -18,7 +20,17 @@ export class JournalMockService {
       .pipe(delay(1000))
       .toPromise()
       .then(value => {
-        this.messagesService.add('Mock journal entries loaded');
+        this.messagesService.add('JournalMockService: entries loaded');
+        return value;
+      });
+  }
+
+  getJournalEntry(id: string): Promise<JournalEntry> {
+    return of(JOURNAL_ENTRIES_MOCK.find(entry => entry.id === id))
+      .pipe(delay(1000))
+      .toPromise()
+      .then(value => {
+        this.messagesService.add(`JournalMockService: fetched entry with id=${id}`);
         return value;
       });
   }

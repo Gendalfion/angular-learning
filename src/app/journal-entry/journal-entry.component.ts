@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Location } from '@angular/common';
 import {JournalEntry} from '../classes/JournalEntry';
+import {ActivatedRoute} from '@angular/router';
+import {JournalService} from '../services/journal.service';
 
 @Component({
   selector: 'app-journal-entry',
@@ -8,20 +11,28 @@ import {JournalEntry} from '../classes/JournalEntry';
 })
 export class JournalEntryComponent implements OnInit {
 
-  @Input() entry: JournalEntry = {
-    id: '1',
-    camera_name: 'Camera 1',
-    date: new Date(),
-    viewed: false
-  };
+  @Input() entry: JournalEntry = null;
 
   formatDate(): String {
     return this.entry.date.toDateString();
   }
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private journalService: JournalService,
+    private location: Location
+  ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    console.log('id = ' + id);
+
+    this.journalService.getJournalEntry(id)
+      .then(entry => this.entry = entry);
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

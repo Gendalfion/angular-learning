@@ -1,8 +1,14 @@
-<h2>[{{entry.camera_name | uppercase}}] Journal entry details</h2>
-<div><span>Id:</span> {{entry.id}}</div>
-<div><span>Date:</span> {{formatDate()}}</div>
+
+<div *ngIf="entry">
+  <h2>[{{entry.camera_name | uppercase}}] Journal entry details</h2>
+  <div><span>Id:</span> {{entry.id}}</div>
+  <div><span>Date:</span> {{formatDate()}}</div>
+  <div>
+    <label>viewed:
+      <input [(ngModel)]="entry.viewed" type="checkbox">
+    </label>
+  </div>
+</div>
 <div>
-  <label>viewed:
-    <input [(ngModel)]="entry.viewed" type="checkbox">
-  </label>
+<button (click)="goBack()" class="pretty-button">Back</button>
 </div>
