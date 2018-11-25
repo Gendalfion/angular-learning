@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: 'journal', component: JournalEntryListComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'journal/entry/:id', component: JournalEntryComponent},
+  {path: 'journal/camera/:name', component: JournalEntryListComponent},
 ];
 
 @NgModule({

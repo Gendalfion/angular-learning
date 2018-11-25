@@ -24,6 +24,13 @@ export class JournalHttpService extends JournalService {
       .catch(this.messagesService.handleError('getJournalEntries', []));
   }
 
+  getJournalEntriesByCameraName(camera_name: string): Promise<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`api/journal/?camera_name=${camera_name}`)
+      .pipe(tap(() => this.messagesService.add(`JournalHttpService: journal entries loaded by camera name="${camera_name}"`)))
+      .toPromise()
+      .catch(this.messagesService.handleError('getJournalEntriesByCameraName', []));
+  }
+
   getJournalEntry(id: string): Promise<JournalEntry> {
     return this.http.get<JournalEntry>(`api/journal/${id}`)
       .pipe(tap(() => this.messagesService.add(`JournalHttpService: loaded journal entry with id=${id}`)))
