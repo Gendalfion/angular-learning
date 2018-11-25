@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {JOURNAL_ENTRIES_MOCK} from '../classes/MockJournalEntries';
+import {Component, OnInit} from '@angular/core';
 import {JournalEntry} from '../classes/JournalEntry';
+import {JournalMockService} from '../journal-mock.service';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -9,13 +9,16 @@ import {JournalEntry} from '../classes/JournalEntry';
 })
 export class JournalEntryListComponent implements OnInit {
 
-  journalList = JOURNAL_ENTRIES_MOCK;
+  journalList: JournalEntry [];
 
   selectedEntry: JournalEntry = null;
 
-  constructor() { }
+  constructor(private journalService: JournalMockService) {
+  }
 
   ngOnInit() {
+    this.journalService.getJournalEntries()
+      .subscribe(entries => this.journalList = entries);
   }
 
   onSelect(entry: JournalEntry) {
